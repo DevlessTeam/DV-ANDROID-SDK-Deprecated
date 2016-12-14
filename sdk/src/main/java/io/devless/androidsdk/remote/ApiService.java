@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -42,6 +43,14 @@ public interface ApiService {
             @Path("service") String service,
             @Query("table") String table,
             @Body RequestBodyTypes.DeletePayload payloady
+    );
+
+    @POST("{service}/db")
+    Call<ResponseBody> insert(
+            @Header(AUTH_TOKEN) String authKey,
+            @Path("service") String service,
+            @Query("table") String table,
+            @Body RequestBodyTypes.InsertPayload payloady
     );
 
     class Creator {

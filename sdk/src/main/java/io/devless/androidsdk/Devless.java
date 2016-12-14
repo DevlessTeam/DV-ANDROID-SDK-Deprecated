@@ -91,6 +91,12 @@ public class Devless {
                 .enqueue(responseCallback(DELETE_SUCCESS, callback));
     }
 
+    public void insert(String service, RequestBodyTypes.InsertPayload payload, final Util.DevlessQueryCallback callback) {
+        // payload resource is an array, it is supposed to be an object but it is not scheduled for fixing in the mean time
+        apiCalls.insert(service, payload.getInsertResource().get(0).getName(), payload)
+                .enqueue(responseCallback(DELETE_SUCCESS, callback));
+    }
+
     private Callback<ResponseBody> responseCallback(final int success_code, final Util.DevlessQueryCallback callback) {
 
         return new Callback<ResponseBody>() {

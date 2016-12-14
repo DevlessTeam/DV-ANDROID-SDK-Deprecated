@@ -40,4 +40,9 @@ public class ApiCalls {
         return getNetworkService(endpoint)
                 .delete(apiKey, service, table, payload);
     }
+
+    public Call<ResponseBody> insert(String service, String table, RequestBodyTypes.InsertPayload payload) {
+        return getNetworkService(endpoint)
+                .insert(apiKey, service, table, payload);
+    }
 }

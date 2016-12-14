@@ -54,6 +54,25 @@ public class RequestBodyTypes {
 
     }
 
+    public static class InsertPayload {
+
+        @SerializedName("resource")
+        @Expose
+        private List<InsertResource> resource = new ArrayList<>();
+
+        /**
+         * @return The updateResource
+         */
+        public List<InsertResource> getInsertResource() {
+            return resource;
+        }
+
+        public void setInsertResource(List<InsertResource> resource) {
+            this.resource = resource;
+        }
+
+    }
+
 
     public static class UpdateParam {
 
@@ -200,6 +219,39 @@ public class RequestBodyTypes {
 
         public void setDeleteParams(List<DeleteParam> params) {
             this.params = params;
+        }
+    }
+
+    public static class InsertResource<T> {
+
+        @SerializedName("name")
+        @Expose
+        private String name;
+
+        @SerializedName("field")
+        @Expose
+        private List<T> field = new ArrayList<>();
+
+        /**
+         * @param name The name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String  getName() {
+            return name;
+        }
+
+        /**
+         * @return The params
+         */
+        public List<T> getInsertObject() {
+            return field;
+        }
+
+        public void setInsertObject(List<T> field) {
+            this.field = field;
         }
     }
 }

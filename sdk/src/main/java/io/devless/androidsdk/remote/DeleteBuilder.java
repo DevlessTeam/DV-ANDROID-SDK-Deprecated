@@ -4,18 +4,15 @@ import android.support.v4.util.Pair;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * Created by bubu on 10/3/16.
  */
 
 public class DeleteBuilder {
-    String table;
-    Pair<String, String> where;
-    List<Pair<String, String>> setList;
+    private String table;
+    private Pair<String, String> where;
 
     public DeleteBuilder setTable(String table) {
         this.table = table;
@@ -34,15 +31,12 @@ public class DeleteBuilder {
             r.setName(this.table);
 
 
-        ArrayList<RequestBodyTypes.DeleteParam> deleteParams = new ArrayList<>();
         RequestBodyTypes.DeleteParam p = new RequestBodyTypes.DeleteParam();
         p.setWhere(where.first + "," + where.second);
         p.setDelete(true);
 
-
-        deleteParams.add(p);
-        r.setDeleteParams(Arrays.asList(p));
-        payload.setDeleteResource(Arrays.asList(r));
+        r.setDeleteParams(Collections.singletonList(p));
+        payload.setDeleteResource(Collections.singletonList(r));
 
         System.out.println(new Gson().toJson(payload));
 

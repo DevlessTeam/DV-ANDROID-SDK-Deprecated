@@ -11,6 +11,7 @@ import io.devless.androidsdk.ErrorResult;
 import io.devless.androidsdk.QueryResult;
 import io.devless.androidsdk.Util;
 import io.devless.androidsdk.remote.DeleteBuilder;
+import io.devless.androidsdk.remote.InsertBuilder;
 import io.devless.androidsdk.remote.RequestBodyTypes;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +82,33 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFail(ErrorResult errorResult) {
                         System.out.println(">>>>>>>> delete failed>>>>>>>>>>>>.." + errorResult.getMessage() + " status code: " + errorResult.getStatusCode());
+                    }
+
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
+                        textView.setText("Error:   " + throwable.toString());
+                    }
+                });
+
+        Inventory inventory = new Inventory();
+        inventory.setName("Kofi");
+
+        RequestBodyTypes.InsertPayload insertPayload = new InsertBuilder<Inventory>()
+                .setTable("products")
+                .add(inventory)
+                .build();
+
+        Devless.get()
+                .insert("inventory", insertPayload, new Util.DevlessQueryCallback() {
+
+                    @Override
+                    public void onSuccess(QueryResult queryResult) {
+                        System.out.println(">>>>>>>> insert success>>>>>>>>>>>>.." + queryResult.getMessage() + " status code: " + queryResult.getStatusCode());
+                    }
+
+                    @Override
+                    public void onFail(ErrorResult errorResult) {
+                        System.out.println(">>>>>>>> insert failed>>>>>>>>>>>>.." + errorResult.getMessage() + " status code: " + errorResult.getStatusCode());
                     }
 
                     public void onError(Throwable throwable) {
