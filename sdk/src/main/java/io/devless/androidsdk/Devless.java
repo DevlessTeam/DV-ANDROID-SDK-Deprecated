@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import io.devless.androidsdk.remote.ApiCalls;
+import io.devless.androidsdk.remote.RPCBuilder;
 import io.devless.androidsdk.remote.RequestBodyTypes;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -96,6 +97,13 @@ public class Devless {
         apiCalls.insert(service, payload.getInsertResource().get(0).getName(), payload)
                 .enqueue(responseCallback(DELETE_SUCCESS, callback));
     }
+
+    public void rpc(String service, RPCBuilder payload, final Util.DevlessQueryCallback callback) {
+        // payload resource is an array, it is supposed to be an object but it is not scheduled for fixing in the mean time
+        apiCalls.rpc(service, payload.getMethod(), payload.getPayload())
+                .enqueue(responseCallback(DELETE_SUCCESS, callback));
+    }
+
 
     private Callback<ResponseBody> responseCallback(final int success_code, final Util.DevlessQueryCallback callback) {
 

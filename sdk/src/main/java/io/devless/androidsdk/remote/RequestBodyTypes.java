@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class RequestBodyTypes {
 
+
     public static class UpdatePayload {
 
         @SerializedName("resource")
@@ -74,9 +75,9 @@ public class RequestBodyTypes {
     }
 
 
-    public static class UpdateParam {
+    static class UpdateParam {
 
-        @SerializedName("where")
+        @SerializedName("jsonrpc")
         @Expose
         private String where;
         @SerializedName("data")
@@ -84,14 +85,14 @@ public class RequestBodyTypes {
         private List<Map<String, String>> data = new ArrayList<>();
 
         /**
-         * @return The where
+         * @return The jsonrpc
          */
         public String getWhere() {
             return where;
         }
 
         /**
-         * @param where The where
+         * @param where The jsonrpc
          */
         public void setWhere(String where) {
             this.where = where;
@@ -121,9 +122,6 @@ public class RequestBodyTypes {
         @Expose
         private List<UpdateParam> params = new ArrayList<>();
 
-        /**
-         * @return The name
-         */
         public String getName() {
             return name;
         }
@@ -156,19 +154,19 @@ public class RequestBodyTypes {
         @Expose
         private boolean delete;
 
-        @SerializedName("where")
+        @SerializedName("jsonrpc")
         @Expose
         private String where;
 
         /**
-         * @return The where
+         * @return The jsonrpc
          */
         public Boolean getDelete() {
             return delete;
         }
 
         /**
-         * @param where The where
+         * @param where The jsonrpc
          */
         public void setWhere(String where) {
             this.where = where;
@@ -206,7 +204,7 @@ public class RequestBodyTypes {
             this.name = name;
         }
 
-        public String  getName() {
+        public String getName() {
             return name;
         }
 
@@ -239,7 +237,7 @@ public class RequestBodyTypes {
             this.name = name;
         }
 
-        public String  getName() {
+        public String getName() {
             return name;
         }
 
@@ -252,6 +250,54 @@ public class RequestBodyTypes {
 
         public void setInsertObject(List<T> field) {
             this.field = field;
+        }
+    }
+
+
+    public static class RPCPayload<T> {
+
+        @SerializedName("jsonrpc")
+        private String jsonrpc = "2.0";
+
+        @SerializedName("method")
+        private String method;
+
+        @SerializedName("id")
+        private int id;
+
+        @SerializedName("params")
+        private T t;
+
+        public String getJsonrpc() {
+            return jsonrpc;
+        }
+
+        public void setJsonrpc(String jsonrpc) {
+            this.jsonrpc = jsonrpc;
+        }
+
+        public String getMethod() {
+            return method;
+        }
+
+        public void setMethod(String method) {
+            this.method = method;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public T getT() {
+            return t;
+        }
+
+        public void setT(T t) {
+            this.t = t;
         }
     }
 }

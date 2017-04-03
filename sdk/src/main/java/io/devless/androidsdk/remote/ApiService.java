@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 /**
  * Created by bubu on 4/25/16.
  */
-public interface ApiService {
+interface ApiService {
 
     String subUrl = "/api/v1/service/";
     String AUTH_TOKEN = "devless-token";
@@ -34,7 +34,7 @@ public interface ApiService {
             @Header(AUTH_TOKEN) String authKey,
             @Path("service") String service,
             @Query("table") String table,
-            @Body RequestBodyTypes.UpdatePayload payloady
+            @Body RequestBodyTypes.UpdatePayload payload
     );
 
     @HTTP(method = "DELETE", path = "{service}/db", hasBody = true)
@@ -42,7 +42,7 @@ public interface ApiService {
             @Header(AUTH_TOKEN) String authKey,
             @Path("service") String service,
             @Query("table") String table,
-            @Body RequestBodyTypes.DeletePayload payloady
+            @Body RequestBodyTypes.DeletePayload payload
     );
 
     @POST("{service}/db")
@@ -50,7 +50,15 @@ public interface ApiService {
             @Header(AUTH_TOKEN) String authKey,
             @Path("service") String service,
             @Query("table") String table,
-            @Body RequestBodyTypes.InsertPayload payloady
+            @Body RequestBodyTypes.InsertPayload payload
+    );
+
+    @POST("{service}/rpc")
+    Call<ResponseBody> rpc(
+            @Header(AUTH_TOKEN) String authKey,
+            @Path("service") String service,
+            @Query("action") String action,
+            @Body RequestBodyTypes.RPCPayload payload
     );
 
     class Creator {

@@ -45,4 +45,9 @@ public class ApiCalls {
         return getNetworkService(endpoint)
                 .insert(apiKey, service, table, payload);
     }
+
+    public Call<ResponseBody> rpc(String service, String action, RequestBodyTypes.RPCPayload payload) {
+        return getNetworkService(endpoint)
+                .rpc(apiKey, service, action, payload);
+    }
 }
